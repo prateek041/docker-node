@@ -10,4 +10,10 @@ services:
       - /app/node_modules
     environment:
       - NODE_ENV=development
+      - MONGO_USER=prateek # env variables for docker app environment.
+      - MONGO_PASSWORD=mypass
     command: npm run dev # overwritting the dockerfile command
+  mongoDB:
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=prateek
+      - MONGO_INITDB_ROOT_PASSWORD=mypass

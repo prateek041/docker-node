@@ -1,9 +1,15 @@
 const express = require('express')
 const mongoose = require('mongoose')
+const {
+    MONGO_IP,
+    MONGO_PORT,
+    MONGO_USER,
+    MONGO_PASSWORD
+} = require('./config/config')
 
 const app = express()
 
-mongoose.connect("mongodb://prateek:mypass@mongoDB:27017/?authSource=admin"
+mongoose.connect(`mongodb://${MONGO_USER}:${MONGO_PASSWORD}@${MONGO_IP}DB:${MONGO_PORT}/?authSource=admin`
 ).then(() => {
     console.log("connected to the database")
 }).catch((error) => {
@@ -13,7 +19,7 @@ mongoose.connect("mongodb://prateek:mypass@mongoDB:27017/?authSource=admin"
 const port = process.env.PORT || 3000;
 
 app.get("/", (req, res) => {
-    res.send("<h2>Hello there this is me hehe hello this is me. this is the boobie girl</h2>")
+    res.send("<h2>Hello there this is me hehe hello this is me. check</h2>")
 })
 
 app.listen(port, () => {
