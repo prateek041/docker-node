@@ -6,6 +6,9 @@ services:
       - "3000:3000"
     environment:
       - PORT=3000
+    depends_on:
+      - mongoDB # node app depends on mongo, so we start mongo container first.
+
   mongoDB:
     image: mongo
     environment:
