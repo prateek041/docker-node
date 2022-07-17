@@ -11,20 +11,26 @@ const app = express()
 
 const mongoURL = `mongodb://${MONGO_USER}:${MONGO_PASSWORD}@${MONGO_IP}DB:${MONGO_PORT}/?authSource=admin`
 
-mongoose.connect(mongoURL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    // useFindAndModify: false
-}).then(() => {
-    console.log("connected to the database...")
-}).catch((error) => {
-    console.log(error)
-})
+const connectDB = () => {
+    mongoose.connect(mongoURL, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        // useFindAndModify: false
+    }).then(() => {
+        console.log("connected to the database...")
+    }).catch((error) => {
+        console.log(error)
+        setTimeout(connectDB, 5000)
+    })
+
+}
+
+connectDB()
 
 const port = process.env.PORT || 3000;
 
 app.get("/", (req, res) => {
-    res.send("<h2>Hello there this is me hehe hello this is me. yeah</h2>")
+    res.send("<h2>Hello there this is me hehe hello this is me.</h2>")
 })
 
 app.listen(port, () => {
