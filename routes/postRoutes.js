@@ -1,4 +1,5 @@
 const express = require('express')
+const protect = require('../middleware/authMiddleware')
 const {
     getAllPost,
     getOnePost,
@@ -9,8 +10,8 @@ const {
 
 const router = express.Router()
 
-router.route("/").get(getAllPost).post(createPost)
+router.route("/").get(protect, getAllPost).post(protect, createPost)
 
-router.route("/:id").get(getOnePost).patch(updatePost).delete(deletePost)
+router.route("/:id").get(protect, getOnePost).patch(protect, updatePost).delete(protect, deletePost)
 
 module.exports = router
