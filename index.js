@@ -42,6 +42,7 @@ const connectDB = () => {
 
 connectDB()
 
+app.enable("trust proxy")
 app.use(
     session({
         store: new RedisStore({ client: redisClient }),
@@ -58,15 +59,16 @@ app.use(
 
 app.use(express.json());
 
-const port = process.env.PORT || 3000;
-
 app.get("/api/v1", (req, res) => {
-    res.send("<h2>Hello there this is me hehe hello this is me and that is how we do it</h2>")
+    res.status(200).send("<h2>Hello there this is me hehe hello this is me and that is how we do it</h2>")
+    console.log("yeah it ran")
 })
 
 app.use("/api/v1/posts", postRouter)
 
 app.use("/api/v1/user", userRouter)
+
+const port = process.env.PORT || 3000;
 
 app.listen(port, () => {
     console.log(`listening on port ${port}`)
