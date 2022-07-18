@@ -11,12 +11,12 @@ const {
     MONGO_PASSWORD,
     REDIS_URL,
     REDIS_PORT,
-    SESSION_SECRET
+    SESSION_SECRET,
 } = require('./config/config')
 
 let redisClient = redis.createClient({
     host: REDIS_URL,
-    port: REDIS_PORT
+    port: REDIS_PORT,
 })
 
 const postRouter = require("./routes/postRoutes")
@@ -42,24 +42,26 @@ const connectDB = () => {
 
 connectDB()
 
-app.use(session({
-    store: new RedisStore({ client: redisClient }),
-    secret: SESSION_SECRET,
-    cookie: {
-        secure: false,
-        resave: false,
-        saveUnitialized: false,
-        httpOnly: true,
-        maxAge: 30000
-    }
-}))
+app.use(
+    session({
+        store: new RedisStore({ client: redisClient }),
+        secret: SESSION_SECRET,
+        cookie: {
+            secure: false,
+            resave: false,
+            saveUninitialized: false,
+            httpOnly: true,
+            maxAge: 30000
+        }
+
+    }))
 
 app.use(express.json());
 
 const port = process.env.PORT || 3000;
 
 app.get("/", (req, res) => {
-    res.send("<h2>Hello there this is me hehe hello this is me. hehe</h2>")
+    res.send("<h2>Hello there this is me hehe hello this is me and that is how we do it</h2>")
 })
 
 app.use("/api/v1/posts", postRouter)
